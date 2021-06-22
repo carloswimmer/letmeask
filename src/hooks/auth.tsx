@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useContext, useState } from 'react'
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
 import { auth, firebase } from '../services/firebase'
 
@@ -18,23 +24,39 @@ const AuthContext = createContext({} as AuthContextType)
 function AuthProvider({ children }: PropsWithChildren<{}>) {
   const [user, setUser] = useState<User>()
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        mountUser(user)
+      }
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider()
 
     const result = await auth.signInWithPopup(provider)
     if (result.user) {
-      const { displayName, photoURL, uid } = result.user
-
-      if (!displayName || !photoURL) {
-        throw new Error('Missing information from Google Account')
-      }
-
-      setUser({
-        id: uid,
-        name: displayName,
-        avatar: photoURL,
-      })
+      mountUser(result.user)
     }
+  }
+
+  function mountUser(user: firebase.User) {
+    const { displayName, photoURL, uid } = user
+
+    if (!displayName || !photoURL) {
+      throw new Error('Missing information from Google Account')
+    }
+
+    setUser({
+      id: uid,
+      name: displayName,
+      avatar: photoURL,
+    })
   }
 
   return (
