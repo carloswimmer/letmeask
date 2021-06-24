@@ -3,19 +3,24 @@ import React from 'react'
 import '../styles/question.scss'
 
 type QuestionProps = {
-  text: string
-  avatar: string
-  author: string
+  content: string
+  author: {
+    name: string
+    avatar: string
+  }
 }
 
-export const Question = ({ text, avatar, author }: QuestionProps) => {
+export const Question = ({ content, author }: QuestionProps) => {
   return (
     <div className="question">
-      <div>{text}</div>
-      <div className="footer">
-        <img src={avatar} alt={author} />
-        <span>{author}</span>
-      </div>
+      <p>{content}</p>
+      <footer>
+        <div className="user-info">
+          <img src={author.avatar} alt={author.name} />
+          <span>{author.name}</span>
+        </div>
+        <div>Botões</div>
+      </footer>
     </div>
   )
 }

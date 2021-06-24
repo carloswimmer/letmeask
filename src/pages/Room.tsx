@@ -114,16 +114,12 @@ export const Room = () => {
           </div>
         </form>
 
-        {questions &&
-          questions.map(({ id, content, author }) => (
-            <div key={id}>
-              <Question
-                text={content}
-                avatar={author.avatar}
-                author={author.name}
-              />
-            </div>
-          ))}
+        <div className="question-list">
+          {questions &&
+            questions.map(({ id, content, author }) => (
+              <Question key={id} content={content} author={author} />
+            ))}
+        </div>
       </main>
     </div>
   )
