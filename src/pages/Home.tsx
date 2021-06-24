@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
@@ -7,8 +8,8 @@ import googleIconImg from '../assets/images/google-icon.svg'
 
 import { useAuth } from '../hooks/auth'
 import { Button } from '../components/Button'
-import '../styles/auth.scss'
 import { database } from '../services/firebase'
+import '../styles/auth.scss'
 
 export function Home() {
   const history = useHistory()
@@ -29,10 +30,10 @@ export function Home() {
       return
     }
 
-    const roomRef = await database.ref(`/rooms/${roomCode}`).get()
+    const roomRef = await database.ref(`rooms/${roomCode}`).get()
 
     if (!roomRef.exists()) {
-      alert('Room does not exist.')
+      toast.error('Room does not exist.')
       return
     }
 
