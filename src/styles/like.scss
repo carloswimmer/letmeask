@@ -1,0 +1,16 @@
+// Use CSS filter generator from https://codepen.io/sosuke/pen/Pjoqqp
+
+// Brightness and saturate set svg to black, keep it.
+// Change the other remaining effects.
+
+// #835afd
+.purple-icon {
+  filter: brightness(0) saturate(100%) invert(45%) sepia(76%) saturate(5378%)
+    hue-rotate(239deg) brightness(107%) contrast(98%);
+}
+
+// #737380
+.gray-icon {
+  filter: brightness(0) saturate(100%) invert(49%) sepia(2%) saturate(2859%)
+    hue-rotate(202deg) brightness(90%) contrast(77%);
+}

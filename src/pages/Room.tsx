@@ -9,6 +9,7 @@ import logoImg from '../assets/images/logo.svg'
 import { Button } from '../components/Button'
 import { RoomCode } from '../components/RoomCode'
 import { Question } from '../components/Question'
+import { LikeIcon } from '../components/LikeIcon'
 import { useAuth, User } from '../hooks/auth'
 import { useRoom } from '../hooks/room'
 
@@ -51,6 +52,22 @@ export const Room = () => {
     setNewQuestion('')
   }
 
+  async function handleLikeQuestion(
+    questionId: string,
+    likeId: string | undefined,
+  ) {
+    if (likeId) {
+      await database
+        .ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`)
+        .remove()
+
+      return
+    }
+    await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+      authorId: user?.id,
+    })
+  }
+
   return (
     <div id="page-room">
       <header>
@@ -83,8 +100,18 @@ export const Room = () => {
 
         <div className="question-list">
           {questions &&
-            questions.map(({ id, content, author }) => (
-              <Question key={id} content={content} author={author} />
+            questions.map(({ id, content, author, likeCount, likeId }) => (
+              <Question key={id} content={content} author={author}>
+                <button
+                  className={`like-button ${likeId ? 'liked' : ''}`}
+                  type="button"
+                  aria-label="Marcar como gostei"
+                  onClick={() => handleLikeQuestion(id, likeId)}
+                >
+                  {likeCount > 0 && <span>{likeCount}</span>}
+                  <LikeIcon color={likeId ? 'purple-icon' : 'gray-icon'} />
+                </button>
+              </Question>
             ))}
         </div>
       </main>
