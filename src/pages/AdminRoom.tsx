@@ -98,7 +98,7 @@ export const AdminRoom = () => {
                       handleCheckQuestionAsAnswered(id, isAnswered)
                     }
                   >
-                    <AnswerIcon
+                    <CheckIcon
                       color={isAnswered ? 'purple-icon' : 'gray-icon'}
                       alt="Marcar pergunta como respondida"
                     />
@@ -107,7 +107,7 @@ export const AdminRoom = () => {
                     type="button"
                     onClick={() => handleHighlighQuestion(id, isHighlighted)}
                   >
-                    <CheckIcon
+                    <AnswerIcon
                       color={isHighlighted ? 'purple-icon' : 'gray-icon'}
                       alt="Dar destaque à pergunta"
                     />
