@@ -5,9 +5,8 @@ import classnames from 'classnames'
 
 import { database } from '../services/firebase'
 
-import logoImg from '../assets/images/logo.svg'
-
 import { Button } from '../components/Button'
+import { Header } from '../components/Header'
 import { RoomCode } from '../components/RoomCode'
 import { Question } from '../components/Question'
 import { LikeIcon } from '../components/LikeIcon'
@@ -27,8 +26,6 @@ export const Room = () => {
   const params = useParams<RoomParams>()
   const roomId = params.id
   const { questions, title, roomAuthor } = useRoom(roomId)
-
-  console.log('user', user?.id, 'author', roomAuthor)
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault()
@@ -78,19 +75,14 @@ export const Room = () => {
 
   return (
     <div id="page-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Logo Letmeask" />
-          <div>
-            <RoomCode code={roomId} />
-            {roomAuthor === user?.id && (
-              <Button isOutlined onClick={goToAdmin}>
-                Admin
-              </Button>
-            )}
-          </div>
-        </div>
-      </header>
+      <Header>
+        <RoomCode code={roomId} />
+        {roomAuthor === user?.id && (
+          <Button isOutlined onClick={goToAdmin}>
+            Admin
+          </Button>
+        )}
+      </Header>
 
       <main>
         <div className="room-title">

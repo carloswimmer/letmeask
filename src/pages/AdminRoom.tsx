@@ -2,10 +2,10 @@ import React from 'react'
 // import toast from 'react-hot-toast'
 import { useHistory, useParams } from 'react-router-dom'
 
-import logoImg from '../assets/images/logo.svg'
 import deleteImg from '../assets/images/delete.svg'
 
 import { Button } from '../components/Button'
+import { Header } from '../components/Header'
 import { RoomCode } from '../components/RoomCode'
 import { Question } from '../components/Question'
 import { CheckIcon } from '../components/CheckIcon'
@@ -63,17 +63,12 @@ export const AdminRoom = () => {
 
   return (
     <div id="page-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Logo Letmeask" />
-          <div>
-            <RoomCode code={roomId} />
-            <Button isOutlined onClick={handleEndRoom}>
-              Encerrar sala
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Header>
+        <RoomCode code={roomId} />
+        <Button isOutlined onClick={handleEndRoom}>
+          Encerrar sala
+        </Button>
+      </Header>
 
       <main>
         <div className="room-title">
