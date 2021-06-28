@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
+import classnames from 'classnames'
 
 import { database } from '../services/firebase'
 
@@ -45,7 +46,7 @@ export const Room = () => {
         avatar: user.avatar,
       },
       isHighlighted: false,
-      isAnswer: false,
+      isAnswered: false,
     }
 
     await database.ref(`rooms/${roomId}/questions`).push(question)
@@ -100,19 +101,35 @@ export const Room = () => {
 
         <div className="question-list">
           {questions &&
-            questions.map(({ id, content, author, likeCount, likeId }) => (
-              <Question key={id} content={content} author={author}>
-                <button
-                  className={`like-button ${likeId ? 'liked' : ''}`}
-                  type="button"
-                  aria-label="Marcar como gostei"
-                  onClick={() => handleLikeQuestion(id, likeId)}
+            questions.map(
+              ({
+                id,
+                content,
+                author,
+                likeCount,
+                likeId,
+                isAnswered,
+                isHighlighted,
+              }) => (
+                <Question
+                  key={id}
+                  content={content}
+                  author={author}
+                  isAnswered={isAnswered}
+                  isHighlighted={isHighlighted}
                 >
-                  {likeCount > 0 && <span>{likeCount}</span>}
-                  <LikeIcon color={likeId ? 'purple-icon' : 'gray-icon'} />
-                </button>
-              </Question>
-            ))}
+                  <button
+                    className={classnames('like-button', { liked: likeId })}
+                    type="button"
+                    aria-label="Marcar como gostei"
+                    onClick={() => handleLikeQuestion(id, likeId)}
+                  >
+                    {likeCount > 0 && <span>{likeCount}</span>}
+                    <LikeIcon color={likeId ? 'purple-icon' : 'gray-icon'} />
+                  </button>
+                </Question>
+              ),
+            )}
         </div>
       </main>
     </div>
