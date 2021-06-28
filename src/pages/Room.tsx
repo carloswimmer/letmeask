@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import classnames from 'classnames'
 
 import { database } from '../services/firebase'
@@ -22,10 +22,13 @@ type RoomParams = {
 
 export const Room = () => {
   const [newQuestion, setNewQuestion] = useState('')
+  const history = useHistory()
   const { user } = useAuth()
   const params = useParams<RoomParams>()
   const roomId = params.id
-  const { questions, title } = useRoom(roomId)
+  const { questions, title, roomAuthor } = useRoom(roomId)
+
+  console.log('user', user?.id, 'author', roomAuthor)
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault()
@@ -69,12 +72,23 @@ export const Room = () => {
     })
   }
 
+  function goToAdmin() {
+    history.push(`/admin/rooms/${roomId}`)
+  }
+
   return (
     <div id="page-room">
       <header>
         <div className="content">
           <img src={logoImg} alt="Logo Letmeask" />
-          <RoomCode code={roomId} />
+          <div>
+            <RoomCode code={roomId} />
+            {roomAuthor === user?.id && (
+              <Button isOutlined onClick={goToAdmin}>
+                Admin
+              </Button>
+            )}
+          </div>
         </div>
       </header>
 

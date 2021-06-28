@@ -28,6 +28,7 @@ type FirebaseQuestions = Record<string, FirebaseQuestionType>
 export const useRoom = (roomId: string) => {
   const [questions, setQuestions] = useState<QuestionType[]>([])
   const [title, setTitle] = useState('')
+  const [roomAuthor, setRoomAuthor] = useState('')
   const { user } = useAuth()
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export const useRoom = (roomId: string) => {
       )
 
       setTitle(databaseRoom.title)
+      setRoomAuthor(databaseRoom.authorId)
       setQuestions(parsedQuestions)
     })
 
@@ -61,5 +63,5 @@ export const useRoom = (roomId: string) => {
     }
   }, [roomId, user?.id])
 
-  return { questions, title }
+  return { questions, title, roomAuthor }
 }
