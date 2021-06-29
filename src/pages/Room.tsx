@@ -99,7 +99,7 @@ export const Room = () => {
 
           <div className="form-footer">
             {user ? <SignedUser user={user} /> : <SignInAdvise />}
-            <Button type="submit" disabled={!user}>
+            <Button isPrimary type="submit" disabled={!user}>
               Enviar pergunta
             </Button>
           </div>
