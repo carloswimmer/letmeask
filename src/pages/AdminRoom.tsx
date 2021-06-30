@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import deleteImg from '../assets/images/delete.svg'
 import endDangerIcon from '../assets/images/end-danger.svg'
 import deleteDangerIcon from '../assets/images/delete-danger.svg'
+import endRoomIcon from '../assets/images/end-room.svg'
 
 import { Button } from '../components/Button'
 import { Header } from '../components/Header'
@@ -13,7 +14,6 @@ import { Question } from '../components/Question'
 import { CheckIcon } from '../components/CheckIcon'
 import { AnswerIcon } from '../components/AnswerIcon'
 import { ConfirmationModal } from '../components/ConfirmationModal'
-// import { useAuth, User } from '../hooks/auth'
 import { useRoom } from '../hooks/room'
 
 import '../styles/room.scss'
@@ -24,7 +24,6 @@ type RoomParams = {
 }
 
 export const AdminRoom = () => {
-  // const { user } = useAuth()
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
   const [endModalIsOpen, setEndModalIsOpen] = useState(false)
   const [editedId, setEditedId] = useState('')
@@ -85,8 +84,8 @@ export const AdminRoom = () => {
     <div id="page-room">
       <Header>
         <RoomCode code={roomId} />
-        <Button isOutlined onClick={handleEndRoom}>
-          Encerrar sala
+        <Button isOutlined isRounded onClick={handleEndRoom}>
+          <img src={endRoomIcon} alt="Encerrar sala" />
         </Button>
       </Header>
 
