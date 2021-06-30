@@ -1,0 +1,90 @@
+.modal-component {
+  display: none;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 16px;
+
+  .overlay {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #050206cc;
+  }
+
+  .dialog {
+    max-width: 590px;
+    background: #f8f8f8;
+    border: none;
+    border-radius: 8px;
+    margin: 0 auto;
+    padding: 32px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      color: #29292e;
+      margin-top: 24px;
+    }
+
+    p {
+      margin-top: 12px;
+      color: #737380;
+    }
+
+    footer {
+      display: flex;
+      gap: 8px;
+      margin-top: 40px;
+    }
+  }
+
+  @media (min-width: 622px) {
+    .dialog {
+      width: 590px;
+      margin: 0 auto;
+      padding: 64px;
+    }
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes showIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.open-wrapper {
+  display: flex;
+}
+
+.open-overlay {
+  animation: showIn 0.2s;
+}
+
+.open-dialog {
+  animation: zoomIn 0.3s cubic-bezier(0.57, 0.53, 0.39, 1.17);
+}
