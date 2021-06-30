@@ -8,6 +8,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   isPrimary?: boolean
   isSecondary?: boolean
   isDefault?: boolean
+  isRounded?: boolean
 }
 
 export function Button({
@@ -15,6 +16,7 @@ export function Button({
   isPrimary = false,
   isSecondary = false,
   isDefault = false,
+  isRounded = false,
   ...props
 }: ButtonProps) {
   return (
@@ -25,6 +27,7 @@ export function Button({
         { primary: isPrimary },
         { secondary: isSecondary },
         { default: isDefault },
+        { rounded: isRounded },
       )}
       {...props}
     >
