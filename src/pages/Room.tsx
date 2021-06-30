@@ -35,7 +35,7 @@ export const Room = () => {
     }
 
     if (!user) {
-      toast.error('You must be logged in')
+      toast.error('Faça seu login para enviar perguntas.')
       return
     }
 
