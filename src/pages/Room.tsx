@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import classnames from 'classnames'
 
 import { database } from '../services/firebase'
+import adminIcon from '../assets/images/admin.svg'
 
 import { Button } from '../components/Button'
 import { Header } from '../components/Header'
@@ -78,8 +79,8 @@ export const Room = () => {
       <Header>
         <RoomCode code={roomId} />
         {roomAuthor === user?.id && (
-          <Button isOutlined onClick={goToAdmin}>
-            Admin
+          <Button isOutlined isRounded onClick={goToAdmin}>
+            <img src={adminIcon} alt="Página de admin" />
           </Button>
         )}
       </Header>
